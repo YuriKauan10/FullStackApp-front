@@ -1,43 +1,43 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Exemplo com FastAPI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo GET</title>
 </head>
 <body>
-    <h1>Dados da API:</h1>
-
-    <h3 id="mensagem">Mensagem: ...</h3>
-    <h3 id="usuario">Usuário: ...</h3>
-    <h3 id="produto">Produto: ...</h3>
+    <h1 id="usuario">Usuário: </h1>
+    <h1 id="produto">Produto: </h1>
+    <h1 id="mensagem">Mensagem: </h1>
 
     <a href="index2.html">
         <button>Clique</button>
     </a>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Mensagem da raiz
-            fetch('http://127.0.0.1:8000/')
-                .then(res => res.json())
-                .then(data => {
-                    document.getElementById("mensagem").innerText = "Mensagem: " + data.mensagem;
-                });
+        // Acessar o usuário
+        fetch('http://localhost:8000/usuario')
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector("#usuario").innerHTML = "Usuário: " + data.usuario;
+            })
+            .catch(error => console.error("Erro ao buscar usuário:", error));
 
-            // Usuário
-            fetch('http://127.0.0.1:8000/usuario')
-                .then(res => res.json())
-                .then(data => {
-                    document.getElementById("usuario").innerText = `Usuário: ${data.nome}, Idade: ${data.idade}`;
-                });
+        // Acessar o produto
+        fetch('http://localhost:8000/produto')
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector("#produto").innerHTML = "Produto: " + data.produto;
+            })
+            .catch(error => console.error("Erro ao buscar produto:", error));
 
-            // Produto
-            fetch('http://127.0.0.1:8000/produto')
-                .then(res => res.json())
-                .then(data => {
-                    document.getElementById("produto").innerText = `Produto: ${data.produto}, Preço: R$ ${data.preco}`;
-                });
-        });
+        // Acessar a mensagem
+        fetch('http://localhost:8000/mensagem')
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector("#mensagem").innerHTML = "Mensagem: " + data.mensagem;
+            })
+            .catch(error => console.error("Erro ao buscar mensagem:", error));
     </script>
 </body>
 </html>

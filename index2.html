@@ -6,34 +6,58 @@
     <title>Alterar Nome</title>
 </head>
 <body> 
-    <h1 id="titulo">...</h1>
+    <h1 id="usuario">Usuário: </h1>
+    <h1 id="produto">Produto: </h1>
+    <h1 id="mensagem">Mensagem: </h1>
 
-    <input type="text" id="inputNome" placeholder="Digite seu nome">
+    <input type="text" id="inputNome" placeholder="Digite: nome, produto, mensagem">
     <button onclick="enviarNome()">Enviar</button>
 
+    <a href="index.html">Voltar</a>
+
     <script>
-        // Busca inicial do nome
-        fetch('http://localhost:8000/mensagem')
-            .then(response => response.json())
-            .then(data => {
-                document.querySelector("#titulo").innerHTML = data.mensagem;
-            });
-
         function enviarNome() {
-            const nome = document.querySelector("#inputNome").value;
+            const valor = document.getElementById("inputNome").value;
+            const partes = valor.split(",").map(item => item.trim());
 
-            fetch('http://localhost:8000/alterar_nome', {
-                method: 'POST',
+            if (partes.length !== 3) {
+                alert("Digite exatamente: nome, produto, mensagem");
+                return;
+            }
+
+            const [usuario, produto, mensagem] = partes;
+
+            fetch("http://localhost:8000/enviar", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ nome: nome })
+                body: JSON.stringify({
+                    usuario: usuario,
+                    produto: produto,
+                    mensagem: mensagem
+                })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Erro na conexão com a API");
+                }
+                return response.json();
+            })
             .then(data => {
-                document.querySelector("#titulo").innerHTML = data.mensagem;
+                // Atualiza a página com os dados recebidos, somente se a resposta for bem-sucedida
+                document.getElementById("usuario").innerHTML = "Usuário: " + data.usuario;
+                document.getElementById("produto").innerHTML = "Produto: " + data.produto;
+                document.getElementById("mensagem").innerHTML = "Mensagem: " + data.mensagem;
             })
-            .catch(error => console.error("Erro:", error));
+            .catch(error => {
+                console.error("Erro:", error);
+                alert("Erro ao conectar com a API. Tente novamente.");
+                // Opcional: Limpa os valores da página se a conexão falhar
+                document.getElementById("usuario").innerHTML = "Usuário: Não disponível";
+                document.getElementById("produto").innerHTML = "Produto: Não disponível";
+                document.getElementById("mensagem").innerHTML = "Mensagem: Não disponível";
+            });
         }
     </script>
 </body>
