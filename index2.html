@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+   
+</head>
+<body> 
+    <h1 id="titulo">...</h1>
+        
+    <script>
+        fetch('http://localhost:8000/mensagem')
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector("#titulo").innerHTML = data.mensagem;
+            })
+            .catch(error => {
+                console.error("Erro ao buscar mensagem:", error);
+            });
+    </script>
+</body>
+</html>
