@@ -1,15 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
-    <h1>API</h1>
-    <p id="mensagem">Aguardando...</p>
-
+    <title>Exemplo com FastAPI</title>
 </head>
 <body>
-    <script src="script.js"></script>
+    <h1>Dados da API:</h1>
+
+    <h3 id="mensagem">Mensagem: ...</h3>
+    <h3 id="usuario">Usuário: ...</h3>
+    <h3 id="produto">Produto: ...</h3>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Mensagem da raiz
+            fetch('http://127.0.0.1:8000/')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("mensagem").innerText = "Mensagem: " + data.mensagem;
+                });
+
+            // Usuário
+            fetch('http://127.0.0.1:8000/usuario')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("usuario").innerText = `Usuário: ${data.nome}, Idade: ${data.idade}`;
+                });
+
+            // Produto
+            fetch('http://127.0.0.1:8000/produto')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("produto").innerText = `Produto: ${data.produto}, Preço: R$ ${data.preco}`;
+                });
+        });
+    </script>
 </body>
 </html>
