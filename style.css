@@ -51,3 +51,11 @@ body{
     color: black;
     font-weight: 700;
 }
+
+#program{
+    display: flex;
+
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}

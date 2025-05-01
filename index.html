@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Joguinho</title>
 </head>
 <body>
     <div id = "pai">
 
         <h1 id = "titulo">Descubra a palavra!</h1>
+
+        <div id="program">
 
         <div id="textos">
             <p id = "mensagemInicio">Aguardando ínicio...</p>
@@ -22,7 +24,7 @@
         <div id="respostasDiv">
             
         </div>
-
+        </div>
     </div>
     
 
@@ -33,6 +35,27 @@
         let respostasDiv = document.querySelector("#respostasDiv")
         let botao = document.querySelector("#botao")
 
+        nomes = ["yuri","joao", "maria", "josé","carlos","joseph"]
+        animais = ["girafa","cachorro","tartaruga","jacaré","gato"]
+        objeto = ["copo", "computador","televisão","garrafa","papel"]
+
+        let arrays = [nomes,animais,objeto]
+        let tipo;
+
+        let arrayEscolhido = arrays[Math.floor(Math.random() * arrays.length)];
+        let palavraEscolhida = arrayEscolhido[Math.floor(Math.random() * arrayEscolhido.length)];
+
+        if (nomes.includes(palavraEscolhida)){
+            tipo = "nome"
+        }else if(animais.includes(palavraEscolhida)){
+            tipo = "animais"
+        }else if(objeto.includes(palavraEscolhida)){
+            tipo = "objeto"
+        }
+
+        console.log(tipo)
+
+
         botao.addEventListener("click", iniciar);
 
         function iniciar() {
@@ -41,7 +64,8 @@
         
            setTimeout(() => {
                 mensagemInicio.innerHTML = ("Seu jogo foi iniciado! <br>")
-                conselho.innerHTML += ("<br> Digite: <br> 0 -> PARAR <br> 3 -> DICA")
+                conselho.innerHTML += ("<br> Digite: <br> 3 -> DICA")
+                botao.innerHTML = ("Tentar")
            },2000)
 
             
