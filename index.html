@@ -15,6 +15,7 @@
 
         <div id="textos">
             <p id = "mensagemInicio">Aguardando ínicio...</p>
+            <p id="tipoWord"></p>
             <p id = "conselho"></p>
         </div>
 
@@ -34,6 +35,7 @@
         let sugestao = document.querySelector("#sugestao")
         let respostasDiv = document.querySelector("#respostasDiv")
         let botao = document.querySelector("#botao")
+        
 
         nomes = ["yuri","joao", "maria", "josé","carlos","joseph"]
         animais = ["girafa","cachorro","tartaruga","jacaré","gato"]
@@ -46,14 +48,12 @@
         let palavraEscolhida = arrayEscolhido[Math.floor(Math.random() * arrayEscolhido.length)];
 
         if (nomes.includes(palavraEscolhida)){
-            tipo = "nome"
+            tipo = "Nome"
         }else if(animais.includes(palavraEscolhida)){
-            tipo = "animais"
+            tipo = "Animal"
         }else if(objeto.includes(palavraEscolhida)){
-            tipo = "objeto"
+            tipo = "Objeto"
         }
-
-        console.log(tipo)
 
 
         botao.addEventListener("click", iniciar);
@@ -63,6 +63,7 @@
             mensagemInicio.innerHTML = ("Seu jogo está iniciando...")
         
            setTimeout(() => {
+                document.querySelector("#tipoWord").innerHTML = (`<br>Sua palavra é um ${tipo}`)
                 mensagemInicio.innerHTML = ("Seu jogo foi iniciado! <br>")
                 conselho.innerHTML += ("<br> Digite: <br> 3 -> DICA")
                 botao.innerHTML = ("Tentar")
