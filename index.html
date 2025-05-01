@@ -3,9 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
+    <div id = "pai">
+
+        <h1 id = "titulo">Descubra a palavra!</h1>
+
+        <div id="textos">
+            <p id = "mensagemInicio">Aguardando ínicio...</p>
+            <p id = "conselho"></p>
+        </div>
+
+        <input id = "sugestao" type="text">
+        <button id = "botao">Iniciar</button>
+       
+        <div id="respostasDiv">
+            
+        </div>
+
+    </div>
     
+
+    <script>
+        let mensagemInicio = document.querySelector("#mensagemInicio")
+        let conselho = document.querySelector("#conselho")
+        let sugestao = document.querySelector("#sugestao")
+        let respostasDiv = document.querySelector("#respostasDiv")
+        let botao = document.querySelector("#botao")
+
+        botao.addEventListener("click", iniciar);
+
+        function iniciar() {
+        
+            mensagemInicio.innerHTML = ("Seu jogo está iniciando...")
+        
+           setTimeout(() => {
+                mensagemInicio.innerHTML = ("Seu jogo foi iniciado! <br>")
+                conselho.innerHTML += ("<br> Digite: <br> 0 -> PARAR <br> 3 -> DICA")
+           },2000)
+
+            
+            botao.removeEventListener("click", iniciar);
+            botao.addEventListener("click", tentativa);
+}
+
+
+        function tentativa(){
+            botao.removeEventListener("click", iniciar)
+            let pCriar = document.createElement("p")
+            pCriar.innerHTML += ("Sugestão: " + sugestao.value)
+            respostasDiv.appendChild(pCriar)
+        }
+
+    </script>
+
 </body>
 </html>
